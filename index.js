@@ -71,7 +71,7 @@ class Child extends BaseElement{
 }
 
 class Container extends BaseElement {
-    id = 'mainSquare'
+    id = 'mainSquare';
     size;
     numberOfChildren;
 
@@ -84,6 +84,7 @@ class Container extends BaseElement {
 
         this.addStyles();
         this.addChildren();
+        this.addTotal();
     }
 
     /**
@@ -102,23 +103,34 @@ class Container extends BaseElement {
      */
     addChildren() {
         for (let i = 0; i < this.numberOfChildren; i++) {
-            const maxItems = this.numberOfChildren > 2 ? Math.round(Math.sqrt(this.numberOfChildren)) : this.numberOfChildren
+            const maxItems = this.numberOfChildren > 2 ? Math.round(Math.sqrt(this.numberOfChildren)) : this.numberOfChildren;
 
-            const childSize = this.size / maxItems
+            const childSize = this.size / maxItems;
 
             const child = new Child(childSize);
 
-            let size = childSize * i / this.size
+            let size = childSize * i / this.size;
 
             if (i !== 0) {
-                child.setStyle('left', `${(size - parseInt(size)) * 100}%`)
-                child.setStyle('top', `${parseInt(size) * childSize}px`)
+                child.setStyle('left', `${(size - parseInt(size)) * 100}%`);
+                child.setStyle('top', `${parseInt(size) * childSize}px`);
             }
 
             if (size < maxItems) {
                 this.element.appendChild(child.element);
             }
         }
+    }
+
+    /**
+     * Present total children rendered.
+     * @returns {number}
+     */
+    addTotal() {
+        const message = document.createElement('div');
+        message.innerText = `Total of ${this.element.childNodes.length} children rendered.`;
+
+        this.element.parentElement.appendChild(message);
     }
 }
 
@@ -129,4 +141,4 @@ const drawContainer = (containerSize, childSize, numberOfChildren) => {
 drawContainer(200, 50, 17);
 // drawContainer(310, 200, 4);
 // drawContainer(413, 42, 30);
-// drawContainer(200, 300, 3);
+// drawContainer(200, 300, 2);
