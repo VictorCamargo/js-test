@@ -59,14 +59,10 @@ class Child extends BaseElement{
         this.element.addEventListener('mouseover', () => {
             this.setStyle('background',  this.randomColor());
 
-            timeout = setTimeout(() => {
-                this.removeElement();
-            }, 2000);
+            timeout = setTimeout(() => this.removeElement(), 2000);
         })
 
-        this.element.addEventListener('mouseleave', () => {
-            clearInterval(timeout);
-        })
+        this.element.addEventListener('mouseleave', () => clearInterval(timeout))
     }
 }
 
